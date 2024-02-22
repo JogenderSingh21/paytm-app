@@ -47,7 +47,7 @@ export const Dashboard = () => {
     }, [])
 
     return <div>
-        <Appbar label={user.firstName}></Appbar>
+        <Appbar user={user}></Appbar>
         <div className="m-8">
             <Balance value={`${balance}`.split(".")[0] + "." + `${balance}`.split(".")[1].substring(0,2)} />
             <Users username={user.username} />
