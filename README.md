@@ -1,4 +1,4 @@
-#PayTM Application
+# PayTM Application
 
 - Money Transfer Application using MERN Stack
 - Authenticated by JWT
