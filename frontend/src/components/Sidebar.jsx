@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { RoundedUser } from './RoundedUser';
 import { useNavigate } from "react-router-dom";
+import { Spinner } from './Spinner';
 
 export const Sidebar = ({user}) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,6 +36,7 @@ export const Sidebar = ({user}) => {
         type="button"
       >
         <RoundedUser label={user.firstName[0]} />
+        {/* <RoundedUser label={user?user.firstName[0]:<Spinner></Spinner>} /> */}
         
       </button>
 

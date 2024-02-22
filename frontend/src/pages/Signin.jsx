@@ -11,6 +11,7 @@ export const Signin = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [success, setSuccess] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,12 +19,11 @@ export const Signin = () => {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }
-        })
-            .then(response => {
+        }).then(response => {
                 if(response.data.success){
                     navigate("/dashboard");
                 }
-            })
+            }).catch(error => console.log(error.response.data))
   }, []);
 
 
@@ -40,13 +40,19 @@ export const Signin = () => {
         }} placeholder="******" label={"Password"} type="password" />
         <div className="pt-4">
           <Button onClick={async () => {
-            const response = await axios.post("http://localhost:3000/api/v1/user/signin", {
+            setSuccess(false);
+            axios.post("http://localhost:3000/api/v1/user/signin", {
               username,
               password
-            });
-            localStorage.setItem("token", response.data.token)
-            navigate("/dashboard");
-          }} label={"Sign In"} secondLabel="Signing in..." />
+            }).then((response) => {
+              console.log(response.data.message);
+              localStorage.setItem("token", response.data.token)
+              navigate("/dashboard");
+            }).catch((error) => {
+              setSuccess(true);
+              alert(error.response.data.message);
+            })
+          }} success={success} label={"Sign In"} secondLabel="Signing in..." />
         </div>
         <BottomWarning label={"Don't have an account?"} buttonText={"Sign up"} to={"/signup"} />
       </div>

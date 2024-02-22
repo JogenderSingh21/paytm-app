@@ -9,9 +9,9 @@ const userRouter = express.Router();
 
 const signupSchema = zod.object({
     username: zod.string().email(),
-    password: zod.string(),
-    firstName: zod.string(),
-    lastName: zod.string()
+    password: zod.string().min(6),
+    firstName: zod.string().min(1),
+    lastName: zod.string().min(1)
 })
 
 userRouter.post("/signup", async (req, res) => {
@@ -81,7 +81,7 @@ userRouter.post("/signin", async (req, res) => {
     }
     
     res.status(411).json({
-        message: "Error while logging in"
+        message: "User Not Found!!"
     });
 });
 

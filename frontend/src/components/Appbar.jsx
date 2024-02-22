@@ -12,7 +12,7 @@ export const Appbar = ({ user }) => {
         <h1 className="text-2xl font-bold">Payments App</h1>
         
         <div className="flex items-center">
-            <div className="mx-3  taxt-lg font-semibold">Hello, {user?user.firstName:<Spinner></Spinner>}</div>
+            <div className="mx-3  taxt-lg font-semibold">Hello, {user.firstName?user.firstName:<Spinner></Spinner>}</div>
             {/* <RoundedUser label={label[0]}></RoundedUser> */}
             <Sidebar user={user}></Sidebar>
         </div>

@@ -7,12 +7,13 @@ import { SubHeading } from "../components/SubHeading"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export const Signup = () => {
+export const Signup = () => { 
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [success, setSuccess] = useState(true);
 
   const navigate = useNavigate();
 
@@ -26,7 +27,7 @@ export const Signup = () => {
                 if(response.data.success){
                     navigate("/dashboard");
                 }
-            })
+            }).catch(error => console.log(error.response.data))
   }, []);
 
     return <div className="bg-slate-300 h-screen flex justify-center">
@@ -48,15 +49,20 @@ export const Signup = () => {
         }} placeholder="******" label={"Password"} type="password"/>
         <div className="pt-4">
           <Button onClick={async () => {
-            const response = await axios.post("http://localhost:3000/api/v1/user/signup", {
+            setSuccess(false);
+            axios.post("http://localhost:3000/api/v1/user/signup", {
               username,
               password,
               firstName,
               lastName
-            });
-            localStorage.setItem("token", response.data.token)
-            navigate("/dashboard");
-          }} label={"Sign up"} secondLabel="Signing up..." />
+            }).then((response) => {
+              localStorage.setItem("token", response.data.token)
+              navigate("/dashboard");
+            }).catch((error) => {
+              setSuccess(true);
+              alert(error.response.data.message);
+            })
+          }} success={success} label={"Sign up"} secondLabel="Signing up..." />
         </div>
         <BottomWarning label={"Already have an account?"} buttonText={"Sign in"} to={"/signin"} />
       </div>
