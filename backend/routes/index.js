@@ -9,14 +9,6 @@ const router = express.Router();
 router.use("/user", userRouter);
 router.use("/account", accountRouter);
 router.get("/me", authMiddleware, async (req, res) => {
-    // if(req.userId){
-        
-    // }
-    // else{
-    //     res.status(411).json({
-    //         success: false
-    //     })
-    // }
     const user = await User.findOne({
         _id: req.userId
     });

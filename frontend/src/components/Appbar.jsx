@@ -1,5 +1,3 @@
-import { RoundedUser } from "./RoundedUser"
-import axios from "axios";
 import { Spinner } from "./Spinner";
 import { Sidebar } from "./Sidebar";
 import { Button } from "./Button";
